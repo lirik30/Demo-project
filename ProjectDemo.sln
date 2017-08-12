@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFModel", "EFModel\EFModel.csproj", "{19F11C17-67CE-49BC-A3C4-126AD811D8F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFModel2", "EFModel2\EFModel2.csproj", "{F10D1F7A-4C68-4DA5-8653-BF5F6EC7191F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolePL", "ConsolePL\ConsolePL.csproj", "{EAEE39FE-A41D-450D-ADCB-6439BE2EDFFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19F11C17-67CE-49BC-A3C4-126AD811D8F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F11C17-67CE-49BC-A3C4-126AD811D8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F11C17-67CE-49BC-A3C4-126AD811D8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F11C17-67CE-49BC-A3C4-126AD811D8F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F10D1F7A-4C68-4DA5-8653-BF5F6EC7191F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F10D1F7A-4C68-4DA5-8653-BF5F6EC7191F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F10D1F7A-4C68-4DA5-8653-BF5F6EC7191F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F10D1F7A-4C68-4DA5-8653-BF5F6EC7191F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAEE39FE-A41D-450D-ADCB-6439BE2EDFFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAEE39FE-A41D-450D-ADCB-6439BE2EDFFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAEE39FE-A41D-450D-ADCB-6439BE2EDFFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAEE39FE-A41D-450D-ADCB-6439BE2EDFFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
