@@ -12,11 +12,9 @@ namespace EFModel
         public int CommentId { get; set; }
         public string Content { get; set; }
         public DateTime CreateTime { get; set; }
-
-        //[ForeignKey("User")]
-        public int? UserId { get; set; }
-        //[ForeignKey("Post")]
-        public int? PostId { get; set; }
+        
+        public int UserId { get; set; }
+        public int PostId { get; set; }
 
         public virtual User User { get; set; }
         public virtual Post Post { get; set; }
