@@ -17,8 +17,6 @@ namespace EFModel
         public string Bio { get; set; }
         public byte[] Image { get; set; }
 
-        public int? BlogId { get; set; }
-
         public virtual Blog Blog { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }

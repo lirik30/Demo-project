@@ -1,0 +1,15 @@
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\ConsolePL.exe.config
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\ConsolePL.exe
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\ConsolePL.pdb
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\EFModel.dll
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\EntityFramework.dll
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\EFModel.pdb
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\EFModel.dll.config
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\EntityFramework.xml
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\obj\Debug\ConsolePL.csprojResolveAssemblyReference.cache
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\obj\Debug\ConsolePL.exe
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\ConsolePL\obj\Debug\ConsolePL.pdb

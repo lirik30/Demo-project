@@ -17,7 +17,7 @@ namespace EFModel
         public DateTime CreateTime { get; set; }
         public DateTime UpdateTime { get; set; }
 
-        public int BlogId { get; set; }
+        public int? BlogId { get; set; }
 
         public virtual Blog Blog { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }  
