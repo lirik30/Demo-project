@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace EFModel
 {
@@ -11,7 +9,9 @@ namespace EFModel
         public Post() => Comments = new List<Comment>();
 
         public int PostId { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         public string Content { get; set; }
         public string Tag { get; set; }
         public DateTime CreateTime { get; set; }

@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace EFModel
 {
     public class Comment
     {
         public int CommentId { get; set; }
+        [Required]
         public string Content { get; set; }
         public DateTime CreateTime { get; set; }
         
