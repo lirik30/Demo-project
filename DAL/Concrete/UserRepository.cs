@@ -50,7 +50,7 @@ namespace DAL.Concrete
                 };
         }
 
-        public DalUser GetByPredicate(Expression<Func<DalUser, bool>> predicate)
+        public DalUser GetByPredicate(Expression<Func<DalUser, bool>> predicate)//!!!
         {
             var userParameter = Expression.Parameter(typeof(User), "user");
             var boolParameter = Expression.Parameter(typeof(bool), "b");
@@ -85,18 +85,44 @@ namespace DAL.Concrete
                 FirstName = dUser.FirstName,
                 LastName = dUser.LastName,
                 Image = dUser.Image,
-                //Blog = ..TODO: think about how to deal with blog/blogId
+                Blog = _context.Set<Blog>().SingleOrDefault(b => b.BlogId == dUser.BlogId)//..It's good?
             };
+            _context.Set<User>().Add(user);
         }
 
         public void Update(DalUser dUser)
         {
-            throw new NotImplementedException();
+            var user = new User
+            {
+                UserId = dUser.Id,
+                Login = dUser.Login,
+                Password = dUser.Password,
+                Email = dUser.Email,
+                FirstName = dUser.FirstName,
+                LastName = dUser.LastName,
+                Image = dUser.Image,
+                Blog = _context.Set<Blog>().
+                    SingleOrDefault(blog => blog.BlogId == dUser.BlogId)
+            };
+            _context.Entry(user).State = EntityState.Modified;
         }
 
         public void Delete(DalUser dUser)
         {
-            throw new NotImplementedException();
+            var user = new User
+            {
+                UserId = dUser.Id,
+                Login = dUser.Login,
+                Password = dUser.Password,
+                Email = dUser.Email,
+                FirstName = dUser.FirstName,
+                LastName = dUser.LastName,
+                Image = dUser.Image,
+                Blog = _context.Set<Blog>().
+                    SingleOrDefault(blog => blog.BlogId == dUser.BlogId)
+            };
+
+            _context.Set<User>().Remove(user);
         }
     }
 }

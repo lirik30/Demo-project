@@ -13,6 +13,6 @@ namespace DAL.Interfaces.DTO
         public string Description { get; set; }
         public DateTime CreateTime { get; set; }
 
-        public int BlogId { get; set; }
+        public int UserId { get; set; }
     }
 }

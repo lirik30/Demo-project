@@ -7,7 +7,7 @@ using DAL.Interfaces.DTO;
 
 namespace DAL.Interfaces.Repository
 {
-    interface IBlogRepository : IRepository<DalBlog>
+    public interface IBlogRepository : IRepository<DalBlog>
     {
     }
 }
