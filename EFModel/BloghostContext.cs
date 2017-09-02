@@ -4,7 +4,7 @@ namespace EFModel
 {
     public class BloghostContext : DbContext
     {
-        public BloghostContext() : base("BloghostDB") { }
+        public BloghostContext() : base("name=BloghostContext") { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Blog> Blogs { get; set; }
