@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using BLL.Interfaces.Entities;
+﻿using BLL.Interfaces.Entities;
 using MvcPL.Models;
 
 namespace MvcPL.Infrastructure.Mappers

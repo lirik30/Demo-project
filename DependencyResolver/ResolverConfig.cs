@@ -18,8 +18,10 @@ namespace DependencyResolver
         {
             if (isWeb)
             {
-                kernel.Bind<IUnitOfWork>().To<UnitOfWork>(); //InRequestScope is unavailable
-                kernel.Bind<DbContext>().To<BloghostContext>();
+                //And, maybe, nothing works because of this 
+                //with insingletonscope it works, but...
+                kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope(); //InRequestScope is unavailable! 
+                kernel.Bind<DbContext>().To<BloghostContext>().InSingletonScope();
             }
             else
             {

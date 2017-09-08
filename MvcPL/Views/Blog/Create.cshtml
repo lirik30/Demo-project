@@ -1,0 +1,41 @@
+﻿@model MvcPL.Models.BlogViewModel
+
+@{
+    ViewBag.Title = "Create blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Create blog</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.BlogName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.BlogName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+        </div>
+        <p>
+            <input type="submit" value="Create blog" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to list of blogs", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

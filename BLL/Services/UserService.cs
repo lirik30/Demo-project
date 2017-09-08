@@ -28,7 +28,8 @@ namespace BLL.Services
 
         public UserEntity GetUserEntity(int id)
         {
-            return _repository.GetById(id).ToBllUser();
+            var user = _repository.GetById(id);
+            return user?.ToBllUser();  //TODO: проверка на null
         }
 
         public UserEntity GetByPredicate(Expression<Func<UserEntity, bool>> predicate)//!!!!!!!!!!
@@ -39,7 +40,8 @@ namespace BLL.Services
                 body: predicate.Body,
                 parameters: new[] { userParameter, boolParameter });
 
-            return _repository.GetByPredicate(newPredicate).ToBllUser();
+            var user = _repository.GetByPredicate(newPredicate);
+            return user?.ToBllUser();
         }
 
         public void CreateUser(UserEntity user)

@@ -88,35 +88,20 @@ namespace DAL.Concrete
 
         public void Update(DalPost dPost)
         {
-            var post = new Post
-            {
-                PostId = dPost.Id,
-                Title = dPost.Title,
-                Content = dPost.Content,
-                Tag = dPost.Tag,
-                CreateTime = dPost.CreateTime,
-                UpdateTime = dPost.UpdateTime,
-                BlogId = dPost.BlogId
-                //Blog = _context.Set<Blog>().SingleOrDefault(b => b.BlogId == dPost.BlogId)
-            };
-
+            var post = _context.Set<Post>().Single(p => p.PostId == dPost.Id);
+            post.PostId = dPost.Id;
+            post.Title = dPost.Title;
+            post.Content = dPost.Content;
+            post.Tag = dPost.Tag;
+            post.CreateTime = dPost.CreateTime;
+            post.UpdateTime = dPost.UpdateTime;
+            post.BlogId = dPost.BlogId;
             _context.Entry(post).State = EntityState.Modified;
         }
 
         public void Delete(DalPost dPost)
         {
-            var post = new Post
-            {
-                PostId = dPost.Id,
-                Title = dPost.Title,
-                Content = dPost.Content,
-                Tag = dPost.Tag,
-                CreateTime = dPost.CreateTime,
-                UpdateTime = dPost.UpdateTime,
-                BlogId = dPost.BlogId
-                //Blog = _context.Set<Blog>().SingleOrDefault(b => b.BlogId == dPost.BlogId)
-            };
-
+            var post = _context.Set<Post>().Single(p => p.PostId == dPost.Id);
             _context.Set<Post>().Remove(post);
         }
     }

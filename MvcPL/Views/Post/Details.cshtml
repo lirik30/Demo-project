@@ -1,0 +1,36 @@
+﻿@model MvcPL.Models.PostViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>@Model.Title</h2>
+    <hr />
+    <h6>@Model.Tag</h6>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Blog", "Details", "Blog", new { id = Model.BlogId }, null)
+    <br />
+    @Html.ActionLink("Edit post", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Delete post", "Delete", new { id = Model.Id }) |
+    @Html.ActionLink("Back to list of posts", "Index")
+</p>

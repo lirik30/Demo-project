@@ -28,7 +28,8 @@ namespace BLL.Services
 
         public PostEntity GetPostEntity(int id)
         {
-            return _repository.GetById(id).ToBllPost();
+            var post = _repository.GetById(id);
+            return post?.ToBllPost();
         }
 
         public PostEntity GetByPredicate(Expression<Func<PostEntity, bool>> predicate)
@@ -39,7 +40,8 @@ namespace BLL.Services
                 body: predicate.Body,
                 parameters: new[] { postParameter, boolParameter });
 
-            return _repository.GetByPredicate(newPredicate).ToBllPost();
+            var post = _repository.GetByPredicate(newPredicate);
+            return post?.ToBllPost();
         }
 
         public void CreatePost(PostEntity post)

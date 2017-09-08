@@ -29,7 +29,8 @@ namespace BLL.Services
 
         public CommentEntity GetPostEntity(int id)
         {
-            return _repository.GetById(id).ToBllComment();
+            var comment = _repository.GetById(id);
+            return comment?.ToBllComment();
         }
 
         public CommentEntity GetByPredicate(Expression<Func<CommentEntity, bool>> predicate)
@@ -40,7 +41,8 @@ namespace BLL.Services
                 body: predicate.Body,
                 parameters: new[] { commentParameter, boolParameter });
 
-            return _repository.GetByPredicate(newPredicate).ToBllComment();
+            var comment = _repository.GetByPredicate(newPredicate);
+            return comment?.ToBllComment();
         }
 
         public void CreateComment(CommentEntity comment)

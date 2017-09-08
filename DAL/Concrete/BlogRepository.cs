@@ -78,27 +78,15 @@ namespace DAL.Concrete
 
         public void Update(DalBlog dBlog)
         {
-            var blog = new Blog
-            {
-                BlogId = dBlog.Id,
-                BlogName = dBlog.BlogName,
-                Description = dBlog.Description,
-                CreateTime = dBlog.CreateTime,
-                User = _context.Set<User>().SingleOrDefault(u => u.UserId == dBlog.UserId)
-            };
+            var blog = _context.Set<Blog>().Single(b => b.BlogId == dBlog.Id);
+            blog.BlogName = dBlog.BlogName;
+            blog.Description = dBlog.Description; //Only blogname and description will be updated
             _context.Entry(blog).State = EntityState.Modified;
         }
 
         public void Delete(DalBlog dBlog)
         {
-            var blog = new Blog
-            {
-                BlogId = dBlog.Id,
-                BlogName = dBlog.BlogName,
-                Description = dBlog.Description,
-                CreateTime = dBlog.CreateTime,
-                User = _context.Set<User>().SingleOrDefault(u => u.UserId == dBlog.UserId)
-            };
+            var blog = _context.Set<Blog>().Single(b => b.BlogId == dBlog.Id);
             _context.Set<Blog>().Remove(blog);
         }
     }
