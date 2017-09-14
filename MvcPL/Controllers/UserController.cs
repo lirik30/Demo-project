@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using BLL.Interfaces.Services;
@@ -16,11 +17,18 @@ namespace MvcPL.Controllers
             _service = service;
         }
 
-        // GET: User
+
         public ActionResult Index()
         {
             var users = _service.GetAllUserEntities().Select(user => user.ToMvcUser());
             return View(users);
+        }
+
+        public ActionResult Sort()
+        {
+            var func = (Func<UserViewModel, object>)TempData["Sorter"];
+            var users = _service.GetAllUserEntities().Select(user => user.ToMvcUser()).OrderBy(func);
+            return View("Index", users);
         }
 
         [HttpGet]

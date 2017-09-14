@@ -86,7 +86,7 @@ namespace DAL.Concrete
                 FirstName = dUser.FirstName,
                 LastName = dUser.LastName,
                 Image = dUser.Image,
-                Blog = _context.Set<Blog>().SingleOrDefault(b => b.BlogId == dUser.BlogId)//..It's good?
+                Blog = _context.Set<Blog>().SingleOrDefault(b => b.BlogId == dUser.BlogId)//..It's good? it's redundant!
             };
 
 
@@ -110,7 +110,7 @@ namespace DAL.Concrete
             user.FirstName = dUser.FirstName;
             user.LastName = dUser.LastName;
             user.Image = dUser.Image;
-            user.Blog = _context.Set<Blog>().SingleOrDefault(blog => blog.BlogId == dUser.BlogId);
+            //user.Blog = _context.Set<Blog>().SingleOrDefault(blog => blog.BlogId == dUser.BlogId);
 
             _context.Entry(user).State = EntityState.Modified;
         }

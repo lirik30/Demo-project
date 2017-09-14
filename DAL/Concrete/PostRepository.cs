@@ -89,13 +89,13 @@ namespace DAL.Concrete
         public void Update(DalPost dPost)
         {
             var post = _context.Set<Post>().Single(p => p.PostId == dPost.Id);
-            post.PostId = dPost.Id;
+            //post.PostId = dPost.Id;
             post.Title = dPost.Title;
             post.Content = dPost.Content;
             post.Tag = dPost.Tag;
-            post.CreateTime = dPost.CreateTime;
+            //post.CreateTime = dPost.CreateTime;
             post.UpdateTime = dPost.UpdateTime;
-            post.BlogId = dPost.BlogId;
+            //post.BlogId = dPost.BlogId;
             _context.Entry(post).State = EntityState.Modified;
         }
 

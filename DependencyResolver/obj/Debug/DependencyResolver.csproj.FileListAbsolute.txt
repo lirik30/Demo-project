@@ -24,3 +24,9 @@ C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\DependencyResol
 C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\DependencyResolver\obj\Debug\DependencyResolver.csprojResolveAssemblyReference.cache
 C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\DependencyResolver\obj\Debug\DependencyResolver.dll
 C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\DependencyResolver\obj\Debug\DependencyResolver.pdb
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\DependencyResolver\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\DependencyResolver\bin\Debug\Ninject.Web.Common.dll
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\DependencyResolver\bin\Debug\Ninject.Web.dll
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\DependencyResolver\bin\Debug\WebActivatorEx.dll
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\DependencyResolver\bin\Debug\Ninject.Web.xml
+C:\Users\Kiril\documents\visual studio 2017\Projects\ProjectDemo\DependencyResolver\bin\Debug\Ninject.Web.Common.xml

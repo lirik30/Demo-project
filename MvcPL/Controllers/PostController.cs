@@ -20,7 +20,7 @@ namespace MvcPL.Controllers
             _service = service;
         }
 
-        // GET: Post
+
         public ActionResult Index()
         {
             var posts = _service.GetAllPostEntities().Select(p => new PostViewModel
@@ -87,13 +87,31 @@ namespace MvcPL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(PostViewModel postViewModel)
         {
-            Debug.WriteLine("____id____" + postViewModel.Id);//something wrong with datetime
-            var dt = DateTime.Now;
-            postViewModel.UpdateTime = dt;
-            Debug.WriteLine("____dt____" + dt);
-            Debug.WriteLine("____ut____" + postViewModel.UpdateTime);
-            Debug.WriteLine("____ct____" + postViewModel.CreateTime);
+            postViewModel.UpdateTime = DateTime.Now;
             _service.UpdatePost(postViewModel.ToBllPost());
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var post = _service.GetPostEntity((int)id);
+            if (post == null)
+                return HttpNotFound();
+
+            return View(post.ToMvcPost());
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var product = _service.GetPostEntity(id);
+            _service.DeletePost(product);
             return RedirectToAction("Index");
         }
 

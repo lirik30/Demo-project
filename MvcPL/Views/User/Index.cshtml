@@ -1,5 +1,4 @@
-﻿@using EFModel
-@model IEnumerable<MvcPL.Models.UserViewModel>
+﻿@model IEnumerable<MvcPL.Models.UserViewModel>
 
 @{
     ViewBag.Title = "Users";
@@ -39,7 +38,7 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.ActionLink(item.Login, "Details", new { id = item.Id })
+                @Html.ActionLink(item.Login, "Details", new{id = item.Id})
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)

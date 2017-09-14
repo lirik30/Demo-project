@@ -5,6 +5,7 @@ using DAL.Concrete;
 using DAL.Interfaces.Repository;
 using EFModel;
 using Ninject;
+using Ninject.Web.Common;
 
 namespace DependencyResolver
 {
@@ -18,10 +19,8 @@ namespace DependencyResolver
         {
             if (isWeb)
             {
-                //And, maybe, nothing works because of this 
-                //with insingletonscope it works, but...
-                kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope(); //InRequestScope is unavailable! 
-                kernel.Bind<DbContext>().To<BloghostContext>().InSingletonScope();
+                kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope(); 
+                kernel.Bind<DbContext>().To<BloghostContext>().InRequestScope();
             }
             else
             {
