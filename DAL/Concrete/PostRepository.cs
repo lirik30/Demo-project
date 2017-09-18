@@ -80,8 +80,7 @@ namespace DAL.Concrete
                 Tag = dPost.Tag,
                 CreateTime = dPost.CreateTime,
                 UpdateTime = dPost.UpdateTime,
-                BlogId = dPost.BlogId,  //todo: can i set value for BlogId instead of set value for Blog? 
-                //Blog = _context.Set<Blog>().SingleOrDefault(b => b.BlogId == dPost.BlogId)
+                BlogId = dPost.BlogId
             };
             _context.Set<Post>().Add(post);
         }
@@ -89,13 +88,10 @@ namespace DAL.Concrete
         public void Update(DalPost dPost)
         {
             var post = _context.Set<Post>().Single(p => p.PostId == dPost.Id);
-            //post.PostId = dPost.Id;
             post.Title = dPost.Title;
             post.Content = dPost.Content;
             post.Tag = dPost.Tag;
-            //post.CreateTime = dPost.CreateTime;
             post.UpdateTime = dPost.UpdateTime;
-            //post.BlogId = dPost.BlogId;
             _context.Entry(post).State = EntityState.Modified;
         }
 

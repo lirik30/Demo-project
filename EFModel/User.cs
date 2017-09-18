@@ -5,7 +5,7 @@ namespace EFModel
 {
     public class User
     {
-        public User() => Comments = new List<Comment>();//virtual is badly?
+        public User() => Comments = new List<Comment>();
 
         public int UserId { get; set; }
         [Required]

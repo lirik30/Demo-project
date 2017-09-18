@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using BLL.Interfaces.Services;
 using MvcPL.Infrastructure.Mappers;
@@ -10,25 +11,25 @@ namespace MvcPL.Controllers
 {
     public class UserController : Controller
     {
-        private IUserService _service;
+        private readonly IUserService _service;
 
         public UserController(IUserService service)
         {
             _service = service;
         }
 
+        public ActionResult GetImage(int id)
+        {
+            var image = _service.GetUserEntity(id)?.Image;
+            if (image == null)
+                return File(Server.MapPath("~/App_Data/NoAvatar.png"), "image/png");
+            return File(image, "image/jpeg");
+        }
 
         public ActionResult Index()
         {
             var users = _service.GetAllUserEntities().Select(user => user.ToMvcUser());
             return View(users);
-        }
-
-        public ActionResult Sort()
-        {
-            var func = (Func<UserViewModel, object>)TempData["Sorter"];
-            var users = _service.GetAllUserEntities().Select(user => user.ToMvcUser()).OrderBy(func);
-            return View("Index", users);
         }
 
         [HttpGet]
@@ -39,8 +40,19 @@ namespace MvcPL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserViewModel userViewModel)
+        public ActionResult Create(UserViewModel userViewModel, HttpPostedFileBase[] uploadImage)
         {
+            if (uploadImage[0] != null)
+            {
+                byte[] imageData;
+                using (var binaryReader = new BinaryReader(uploadImage[0].InputStream))
+                {
+                    imageData = binaryReader.ReadBytes(uploadImage[0].ContentLength);
+                }
+
+                userViewModel.Image = imageData;
+            }
+
             _service.CreateUser(userViewModel.ToBllUser());
             return RedirectToAction("Index");
         }
@@ -60,13 +72,24 @@ namespace MvcPL.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(UserViewModel userViewModel)
+        public ActionResult Edit(UserViewModel userViewModel, HttpPostedFileBase[] uploadImage)
         {
+            if (uploadImage[0] != null)
+            {
+                byte[] imageData;
+                using (var binaryReader = new BinaryReader(uploadImage[0].InputStream))
+                {
+                    imageData = binaryReader.ReadBytes(uploadImage[0].ContentLength);
+                }
+
+                userViewModel.Image = imageData;
+            }
+
             _service.UpdateUser(userViewModel.ToBllUser());
             return RedirectToAction("Index");
         }
 
-        // GET: Products/Delete/5
+
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -79,7 +102,7 @@ namespace MvcPL.Controllers
             return View(user.ToMvcUser());
         }
 
-        // POST: Products/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

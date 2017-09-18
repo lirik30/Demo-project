@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Services.Description;
 using BLL.Interfaces.Services;
 using MvcPL.Infrastructure.Mappers;
 using MvcPL.Models;
@@ -14,14 +10,14 @@ namespace MvcPL.Controllers
 {
     public class BlogController : Controller
     {
-        private IBlogService _service;
+        private readonly IBlogService _service;
 
         public BlogController(IBlogService service)
         {
             _service = service;
         }
 
-        // GET: Blog
+
         public ActionResult Index()
         {
             var blogs = _service.GetAllBlogEntities().Select(blog => blog.ToMvcBlog());
@@ -51,7 +47,6 @@ namespace MvcPL.Controllers
                 return View("BlogExistsError");
 
             TempData["UserId"] = id;
-            //ViewBag.UserId = (int) id;
             return View();
         }
 
@@ -82,13 +77,11 @@ namespace MvcPL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BlogViewModel blogViewModel)
         {
-            Debug.WriteLine("____ct____" + blogViewModel.CreateTime);
             _service.UpdateBlog(blogViewModel.ToBllBlog());
             return RedirectToAction("Index");
         }
 
-
-        // GET: Products/Delete/5
+        
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -101,7 +94,7 @@ namespace MvcPL.Controllers
             return View(blog.ToMvcBlog());
         }
 
-        // POST: Products/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -110,6 +103,5 @@ namespace MvcPL.Controllers
             _service.DeleteBlog(product);
             return RedirectToAction("Index");
         }
-
     }
 }

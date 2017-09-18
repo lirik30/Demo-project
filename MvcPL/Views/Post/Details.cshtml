@@ -1,30 +1,52 @@
-﻿@model MvcPL.Models.PostViewModel
+﻿@using MvcPL.Models
+@model PostViewModel
 
 @{
     ViewBag.Title = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var comments = (IEnumerable<CommentViewModel>)TempData["Comments"];
+    TempData["PostId"] = Model.Id;
+    TempData["UserId"] = Model.BlogId;//комменты-самострелы
 }
 
 <div>
     <h2>@Model.Title</h2><br/>
     <h6>@Model.Tag</h6>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdateTime)
-        </dt>
+</div>
 
+<div>
+    @Html.DisplayFor(model => model.Content)
+</div>
+<br/>
+<div>
+    @using (Html.BeginForm("Create", "Comment", FormMethod.Post))
+    {
+        @Html.Hidden("PostId")
+        @Html.Hidden("UserId")
+        <div class="editor-field">
+            <textarea name="Content" cols="100"></textarea>
+        </div>
+        <div>
+            <input type="submit" value="Add comment"/>
+        </div>
+    }
+</div>
+
+<div>
+    <h4>Comments for this post:</h4>
+    <dl>
+    @foreach (var comment in comments)
+    {
         <dd>
-            @Html.DisplayFor(model => model.UpdateTime)
+            <h4>
+                <img width="50" height="50" src="@Url.Action("GetImage", "User", new {id = comment.UserId})"/>
+                @Html.DisplayFor(modelItem => comment.Content)
+                <br/>
+            </h4>
+            <h6>@Html.DisplayFor(modelItem => comment.CreateTime)</h6>
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
+        }
     </dl>
 </div>
 <p>

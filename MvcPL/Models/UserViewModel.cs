@@ -4,7 +4,6 @@ namespace MvcPL.Models
 {
     public class UserViewModel
     {
-        //что входит в UserViewModel и как представить блоги\посты\комменты, связанные друг с другом
         public int Id { get; set; }
         [Display(Name="User name")]
         public string Login { get; set; }

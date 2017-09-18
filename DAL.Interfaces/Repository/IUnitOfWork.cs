@@ -2,7 +2,7 @@
 
 namespace DAL.Interfaces.Repository
 {
-    public interface IUnitOfWork : IDisposable//why disposable?
+    public interface IUnitOfWork : IDisposable
     {
         void Commit();
     }

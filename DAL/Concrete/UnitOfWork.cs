@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Diagnostics;
 using DAL.Interfaces.Repository;
 
 namespace DAL.Concrete
@@ -12,10 +11,6 @@ namespace DAL.Concrete
 
         public void Dispose() => Context?.Dispose();
 
-        public void Commit()
-        {
-            Debug.WriteLine("___Has changes: " + Context.ChangeTracker.HasChanges());
-            Context.SaveChanges();
-        }
+        public void Commit() => Context.SaveChanges();
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BLL.Interfaces.Services;
 using MvcPL.Infrastructure.Mappers;
@@ -13,17 +10,19 @@ namespace MvcPL.Controllers
 {
     public class PostController : Controller
     {
-        private readonly IPostService _service;
+        private readonly IPostService _postService;
+        private readonly ICommentService _commentService; //ajax запросы
 
-        public PostController(IPostService service)
+        public PostController(IPostService postService, ICommentService commentService)
         {
-            _service = service;
+            _postService = postService;
+            _commentService = commentService;
         }
 
 
         public ActionResult Index()
         {
-            var posts = _service.GetAllPostEntities().Select(p => new PostViewModel
+            var posts = _postService.GetAllPostEntities().Select(p => new PostViewModel
             {
                 Id = p.Id,
                 Title = p.Title,
@@ -41,9 +40,13 @@ namespace MvcPL.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var post = _service.GetPostEntity((int)id);
+            var post = _postService.GetPostEntity((int)id);
             if (post == null)
                 return HttpNotFound();
+
+            var comments = _commentService.GetAllPostEntities().Where(c => c.PostId == id).OrderBy(c => c.CreateTime).
+                           Select(c => c.ToMvcComment());
+            TempData["Comments"] = comments.ToList();
 
             return View(post.ToMvcPost());
         }
@@ -65,7 +68,7 @@ namespace MvcPL.Controllers
             postViewModel.BlogId = (int)TempData["BlogId"];
             postViewModel.CreateTime = DateTime.Now;
             postViewModel.UpdateTime = DateTime.Now;
-            _service.CreatePost(postViewModel.ToBllPost());
+            _postService.CreatePost(postViewModel.ToBllPost());
             return RedirectToAction("Index");
         }
 
@@ -76,7 +79,7 @@ namespace MvcPL.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var post = _service.GetPostEntity((int)id);
+            var post = _postService.GetPostEntity((int)id);
             if (post == null)
                 return HttpNotFound();
 
@@ -88,7 +91,7 @@ namespace MvcPL.Controllers
         public ActionResult Edit(PostViewModel postViewModel)
         {
             postViewModel.UpdateTime = DateTime.Now;
-            _service.UpdatePost(postViewModel.ToBllPost());
+            _postService.UpdatePost(postViewModel.ToBllPost());
             return RedirectToAction("Index");
         }
 
@@ -98,7 +101,7 @@ namespace MvcPL.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var post = _service.GetPostEntity((int)id);
+            var post = _postService.GetPostEntity((int)id);
             if (post == null)
                 return HttpNotFound();
 
@@ -110,8 +113,8 @@ namespace MvcPL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var product = _service.GetPostEntity(id);
-            _service.DeletePost(product);
+            var product = _postService.GetPostEntity(id);
+            _postService.DeletePost(product);
             return RedirectToAction("Index");
         }
 

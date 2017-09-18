@@ -3,44 +3,55 @@
 @{
     ViewBag.Title = "User details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    TempData["UserId"] = Model.Id;
 }
 
-<div>
-    <h4>User:</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Login)
-        </dt>
+<h4>User:</h4>
+<hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.Login)
-        </dd>
+<div class="row">
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Login)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Login)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-    </dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+        </dl>
+    </div>
+
+    <div class="col-md-6">
+        <a href="@Url.Action("GetImage", "User", new {id = Model.Id})">
+            <img width="200" height="200" src="@Url.Action("GetImage", "User", new {id = Model.Id})"/>
+        </a>
+        
+    </div>
 </div>
 <p>
     @if (Model.BlogId != null)

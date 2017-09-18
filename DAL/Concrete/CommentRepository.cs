@@ -71,10 +71,7 @@ namespace DAL.Concrete
                 Content = dComment.Content,
                 CreateTime = dComment.CreateTime,
                 PostId = dComment.PostId,
-                UserId = dComment.UserId,
-                //Post = _context.Set<Post>().SingleOrDefault(p => p.PostId == dComment.PostId),
-                //User = _context.Set<User>().SingleOrDefault(u => u.UserId== dComment.UserId)
-
+                UserId = dComment.UserId
             };
             _context.Set<Comment>().Add(comment);
         }
@@ -87,10 +84,7 @@ namespace DAL.Concrete
                 Content = dComment.Content,
                 CreateTime = dComment.CreateTime,
                 PostId = dComment.PostId,
-                UserId = dComment.UserId,
-                //Post = _context.Set<Post>().SingleOrDefault(p => p.PostId == dComment.PostId),
-                //User = _context.Set<User>().SingleOrDefault(u => u.UserId== dComment.UserId)
-
+                UserId = dComment.UserId
             };
             _context.Entry(comment).State = EntityState.Modified;
         }
@@ -103,10 +97,7 @@ namespace DAL.Concrete
                 Content = dComment.Content,
                 CreateTime = dComment.CreateTime,
                 PostId = dComment.PostId,
-                UserId = dComment.UserId,
-                //Post = _context.Set<Post>().SingleOrDefault(p => p.PostId == dComment.PostId),
-                //User = _context.Set<User>().SingleOrDefault(u => u.UserId== dComment.UserId)
-
+                UserId = dComment.UserId
             };
             _context.Set<Comment>().Remove(comment);
         }
