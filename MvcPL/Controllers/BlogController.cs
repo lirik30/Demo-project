@@ -54,6 +54,8 @@ namespace MvcPL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(BlogViewModel blogViewModel)
         {
+            if (!ModelState.IsValid)
+                return View(); 
             blogViewModel.UserId = (int)TempData["UserId"];
             blogViewModel.CreateTime = DateTime.Now;
             _service.CreateBlog(blogViewModel.ToBllBlog());
@@ -77,6 +79,8 @@ namespace MvcPL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BlogViewModel blogViewModel)
         {
+            if (!ModelState.IsValid)
+                return View(blogViewModel);
             _service.UpdateBlog(blogViewModel.ToBllBlog());
             return RedirectToAction("Index");
         }

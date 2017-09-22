@@ -65,6 +65,8 @@ namespace MvcPL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(PostViewModel postViewModel)
         {
+            if(!ModelState.IsValid)
+                return View();
             postViewModel.BlogId = (int)TempData["BlogId"];
             postViewModel.CreateTime = DateTime.Now;
             postViewModel.UpdateTime = DateTime.Now;

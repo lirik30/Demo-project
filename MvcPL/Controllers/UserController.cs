@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using BLL.Interfaces.Services;
@@ -16,6 +18,16 @@ namespace MvcPL.Controllers
         public UserController(IUserService service)
         {
             _service = service;
+        }
+
+        private string GetMD5Hash(string input)
+        {
+            var md5Hasher = MD5.Create();
+            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
+            var sBuilder = new StringBuilder();
+            foreach (var b in data)
+                sBuilder.Append(b.ToString("x2"));
+            return sBuilder.ToString();
         }
 
         public ActionResult GetImage(int id)
@@ -42,6 +54,8 @@ namespace MvcPL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UserViewModel userViewModel, HttpPostedFileBase[] uploadImage)
         {
+            if (!ModelState.IsValid)
+                return View();
             if (uploadImage[0] != null)
             {
                 byte[] imageData;
@@ -53,9 +67,11 @@ namespace MvcPL.Controllers
                 userViewModel.Image = imageData;
             }
 
+            userViewModel.Password = GetMD5Hash(userViewModel.Password);//we get response with the open password...?
             _service.CreateUser(userViewModel.ToBllUser());
             return RedirectToAction("Index");
         }
+
 
         [HttpGet]
         public ActionResult Edit(int? id)
@@ -74,6 +90,8 @@ namespace MvcPL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserViewModel userViewModel, HttpPostedFileBase[] uploadImage)
         {
+            if (!ModelState.IsValid)
+                return View(userViewModel);
             if (uploadImage[0] != null)
             {
                 byte[] imageData;
@@ -85,6 +103,7 @@ namespace MvcPL.Controllers
                 userViewModel.Image = imageData;
             }
 
+            userViewModel.Password = GetMD5Hash(userViewModel.Password);
             _service.UpdateUser(userViewModel.ToBllUser());
             return RedirectToAction("Index");
         }

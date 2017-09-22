@@ -6,7 +6,7 @@ namespace MvcPL.Models
     public class BlogViewModel
     {
         public int Id { get; set; }
-        [Display(Name="Name of the blog")]
+        [Display(Name="Name of the blog"), Required(ErrorMessage = "Blog name is required")]
         public string BlogName { get; set; }
         public string Description { get; set; }
         [Display(Name = "Time of creation")]
