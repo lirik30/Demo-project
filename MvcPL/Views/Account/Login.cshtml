@@ -1,0 +1,41 @@
+﻿@model MvcPL.Models.LogonViewModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Login", "Account", new { url = ViewBag.OldUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="form-horizontal">
+        <h3>Login</h3>
+        <hr />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Login)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Login)
+            @Html.ValidationMessageFor(model => model.Login)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+        <div class="checkbox">
+            <strong>Remember me?</strong>    
+            @Html.EditorFor(model => model.RememberMe)
+            @Html.ValidationMessageFor(model => model.RememberMe)
+        </div>
+        <p>
+            <input type="submit" value="Login"/>
+        </p>
+    </div>
+    <p>
+        @Html.ActionLink("Register", "Register", null, new{@class="btn-default"})
+    </p>
+}

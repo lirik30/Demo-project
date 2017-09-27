@@ -43,11 +43,13 @@
     <Compile Include="Entities\BlogEntity.cs" />
     <Compile Include="Entities\CommentEntity.cs" />
     <Compile Include="Entities\PostEntity.cs" />
+    <Compile Include="Entities\RoleEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IBlogService.cs" />
     <Compile Include="Services\ICommentService.cs" />
     <Compile Include="Services\IPostService.cs" />
+    <Compile Include="Services\IRoleService.cs" />
     <Compile Include="Services\IUserService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

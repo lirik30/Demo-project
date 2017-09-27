@@ -11,5 +11,6 @@
         public byte[] Image { get; set; }
 
         public int? BlogId { get; set; }
+        public int RoleId { get; set; }
     }
 }

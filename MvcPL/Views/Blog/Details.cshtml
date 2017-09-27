@@ -7,46 +7,31 @@
 
 <div>
     <h4>Blog:</h4>
-    <hr />
+    <hr/>
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BlogName)
-        </dt>
+        <dt>@Html.DisplayNameFor(model => model.BlogName)</dt>
+        <dd>@Html.DisplayFor(model => model.BlogName)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.BlogName)
-        </dd>
+        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreateTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
+        <dt>@Html.DisplayNameFor(model => model.CreateTime)</dt>
+        <dd>@Html.DisplayFor(model => model.CreateTime)</dd>
+        
+        <dt>User name</dt>
+        <dd>@Html.Action("GetLoginById", "User", new {id = Model.UserId})</dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("User", "Details", "User", new { id = Model.UserId }, null)
+    @Html.ActionLink("More user information", "Details", "User", new { id = Model.UserId }, null)
     <br/>
-    @Html.ActionLink("Edit blog", "Edit", new {id = Model.Id}) |
-    @Html.ActionLink("Delete blog", "Delete", new {id = Model.Id}) |
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink("Add post", "CreatePost", "Blog", new { id = Model.Id }, null)
+        <br/>
+        @Html.ActionLink("Edit blog", "Edit", new {id = Model.Id}) @:|
+        @Html.ActionLink("Delete blog", "Delete", new {id = Model.Id})
+        <br/>
+    }
     @Html.ActionLink("Back to list of blogs", "Index")
 </p>

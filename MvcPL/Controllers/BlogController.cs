@@ -8,28 +8,43 @@ using MvcPL.Models;
 
 namespace MvcPL.Controllers
 {
+    [Authorize]
     public class BlogController : Controller
     {
-        private readonly IBlogService _service;
+        private readonly IBlogService _blogService;
+        private readonly IUserService _userService;
 
-        public BlogController(IBlogService service)
+        public BlogController(IBlogService blogService, IUserService userService)
         {
-            _service = service;
+            _blogService = blogService;
+            _userService = userService;
         }
 
+        public ActionResult CreatePost(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+            if(!HasAccess((int)id))
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
+            return RedirectToAction("Create", "Post", new {id});
+        }
+
+        [AllowAnonymous]
         public ActionResult Index()
         {
-            var blogs = _service.GetAllBlogEntities().Select(blog => blog.ToMvcBlog());
+            var blogs = _blogService.GetAllBlogEntities().Select(blog => blog.ToMvcBlog());
             return View(blogs);
         }
 
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var blog = _service.GetBlogEntity((int)id);
+            var blog = _blogService.GetBlogEntity((int)id);
             if (blog == null)
                 return HttpNotFound();
 
@@ -42,7 +57,10 @@ namespace MvcPL.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var blog = _service.GetBlogEntity((int) id);
+            if (!HasAccess((int)id))
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
+            var blog = _blogService.GetBlogEntity((int) id);
             if (blog != null)
                 return View("BlogExistsError");
 
@@ -50,15 +68,14 @@ namespace MvcPL.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(BlogViewModel blogViewModel)
         {
             if (!ModelState.IsValid)
                 return View(); 
             blogViewModel.UserId = (int)TempData["UserId"];
             blogViewModel.CreateTime = DateTime.Now;
-            _service.CreateBlog(blogViewModel.ToBllBlog());
+            _blogService.CreateBlog(blogViewModel.ToBllBlog());
             return RedirectToAction("Index");
         }
 
@@ -68,20 +85,22 @@ namespace MvcPL.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var blog = _service.GetBlogEntity((int)id);
+            if (!HasAccess((int)id))
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
+            var blog = _blogService.GetBlogEntity((int)id);
             if (blog == null)
                 return HttpNotFound();
 
             return View(blog.ToMvcBlog());
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(BlogViewModel blogViewModel)
         {
             if (!ModelState.IsValid)
                 return View(blogViewModel);
-            _service.UpdateBlog(blogViewModel.ToBllBlog());
+            _blogService.UpdateBlog(blogViewModel.ToBllBlog());
             return RedirectToAction("Index");
         }
 
@@ -91,7 +110,10 @@ namespace MvcPL.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var blog = _service.GetBlogEntity((int)id);
+            if (!HasAccess((int)id))
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
+            var blog = _blogService.GetBlogEntity((int)id);
             if (blog == null)
                 return HttpNotFound();
 
@@ -99,13 +121,27 @@ namespace MvcPL.Controllers
         }
 
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var product = _service.GetBlogEntity(id);
-            _service.DeleteBlog(product);
+            var product = _blogService.GetBlogEntity(id);
+            _blogService.DeleteBlog(product);
             return RedirectToAction("Index");
         }
+
+        #region ChildActions
+
+        [ChildActionOnly, AllowAnonymous]
+        public string GetNameById(int id)
+        {
+            return _blogService.GetBlogEntity(id).BlogName;
+        }
+
+        [ChildActionOnly]
+        public bool HasAccess(int id)
+        {
+            return id == _userService.GetIdByLogin(User.Identity.Name) || User.IsInRole("Administrator");
+        }
+        #endregion
     }
 }

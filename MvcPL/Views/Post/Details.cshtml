@@ -5,54 +5,72 @@
     ViewBag.Title = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var comments = (IEnumerable<CommentViewModel>)TempData["Comments"];
-    TempData["PostId"] = Model.Id;
-    TempData["UserId"] = Model.BlogId;//комменты-самострелы
+    if (User.Identity.IsAuthenticated)
+    {
+        TempData["PostId"] = Model.Id;
+        TempData["UserId"] = Html.Action("GetIdByLogin", "User", new{login=User.Identity.Name});
+    }
 }
 
 <div>
-    <h2>@Model.Title</h2><br/>
-    <h6>@Model.Tag</h6>
-    <hr />
+    <h2>@Model.Title</h2>
+    <p>@Model.Tag</p>
+    @Html.ActionLink("Blog info", "Details", "Blog", new { id = Model.BlogId }, null)
+    <hr/>
 </div>
 
 <div>
     @Html.DisplayFor(model => model.Content)
 </div>
 <br/>
-<div>
-    @using (Html.BeginForm("Create", "Comment", FormMethod.Post))
-    {
-        @Html.Hidden("PostId")
-        @Html.Hidden("UserId")
-        <div class="editor-field">
-            <textarea name="Content" cols="100"></textarea>
-        </div>
-        <div>
-            <input type="submit" value="Add comment"/>
-        </div>
-    }
-</div>
-
+<hr/>
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        @using (Html.BeginForm("Create", "Comment", FormMethod.Post))
+        {
+            @Html.Hidden("PostId")
+            @Html.Hidden("UserId")
+            <div class="editor-field">
+                <textarea name="Content" cols="100"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="Add comment"/>
+            </div>
+        }
+    </div>
+}
+else
+{
+    @:You can leave a comment after @Html.ActionLink("registration", "Register", "Account") or 
+    @Html.ActionLink("authorization", "Login", "Account")
+}
+<hr/>
 <div>
     <h4>Comments for this post:</h4>
-    <dl>
     @foreach (var comment in comments)
     {
-        <dd>
-            <h4>
-                <img width="50" height="50" src="@Url.Action("GetImage", "User", new {id = comment.UserId})"/>
-                @Html.DisplayFor(modelItem => comment.Content)
+        <div class="row">
+            <div class="col-md-1">
+                <img width="50" height="50" src="@Url.Action("GetImage", "User", new { id = comment.UserId})" />
+            </div>
+
+            <div class="col-md-offset-1">
+                <strong>@Html.Action("GetLoginById", "User", new { id = comment.UserId })</strong> 
+                <=> @Html.DisplayFor(modelItem => comment.CreateTime)
                 <br/>
-            </h4>
-            <h6>@Html.DisplayFor(modelItem => comment.CreateTime)</h6>
-        </dd>
-        }
-    </dl>
+                @Html.DisplayFor(modelItem => comment.Content)
+            </div>
+        </div>
+        <hr/>
+    }
 </div>
 <p>
-    @Html.ActionLink("Blog", "Details", "Blog", new { id = Model.BlogId }, null)
-    <br />
-    @Html.ActionLink("Edit post", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Delete post", "Delete", new { id = Model.Id }) |
+    <br/>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink("Edit post", "Edit", new {id = Model.Id}) @:|
+        @Html.ActionLink("Delete post", "Delete", new {id = Model.Id}) @:|
+    }
     @Html.ActionLink("Back to list of posts", "Index")
 </p>

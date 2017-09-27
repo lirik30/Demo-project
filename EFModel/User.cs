@@ -18,7 +18,10 @@ namespace EFModel
         public string LastName { get; set; }
         public byte[] Image { get; set; }
 
+        public int RoleId { get; set; }
+
         public virtual Blog Blog { get; set; }
+        public virtual Role Role { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }
 }

@@ -26,6 +26,7 @@ namespace DAL.Concrete
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 BlogId = user.Blog == null ? null : (int?)user.Blog.BlogId,
+                RoleId = user.RoleId,//
                 Image = user.Image
             });
         }
@@ -44,6 +45,25 @@ namespace DAL.Concrete
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     BlogId = user.Blog?.BlogId,
+                    RoleId = user.RoleId,
+                    Image = user.Image
+                };
+        }
+
+        public DalUser GetUserByLogin(string login)
+        {
+            var user = _context.Set<User>().FirstOrDefault(u => u.Login == login); return user == null
+                ? null
+                : new DalUser
+                {
+                    Id = user.UserId,
+                    Login = user.Login,
+                    Password = user.Password,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    BlogId = user.Blog?.BlogId,
+                    RoleId = user.RoleId,
                     Image = user.Image
                 };
         }
@@ -68,6 +88,7 @@ namespace DAL.Concrete
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     BlogId = user.Blog?.BlogId,
+                    RoleId = user.RoleId,
                     Image = user.Image
                 };
         }
@@ -82,6 +103,7 @@ namespace DAL.Concrete
                 Email = dUser.Email,
                 FirstName = dUser.FirstName,
                 LastName = dUser.LastName,
+                RoleId = dUser.RoleId,
                 Image = dUser.Image
             };
 
@@ -96,6 +118,7 @@ namespace DAL.Concrete
             user.Email = dUser.Email;
             user.FirstName = dUser.FirstName;
             user.LastName = dUser.LastName;
+            user.RoleId = dUser.RoleId;
             user.Image = dUser.Image;
             _context.Entry(user).State = EntityState.Modified;
         }

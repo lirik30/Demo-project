@@ -43,6 +43,7 @@
     <Compile Include="DTO\DalBlog.cs" />
     <Compile Include="DTO\DalComment.cs" />
     <Compile Include="DTO\DalPost.cs" />
+    <Compile Include="DTO\DalRole.cs" />
     <Compile Include="DTO\DalUser.cs" />
     <Compile Include="DTO\IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Repository\ICommentRepository.cs" />
     <Compile Include="Repository\IPostRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IRoleRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
   </ItemGroup>

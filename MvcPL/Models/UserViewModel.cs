@@ -3,6 +3,13 @@ using System.Web.Mvc;
 
 namespace MvcPL.Models
 {
+
+    public enum Role
+    {
+        Administrator = 1,
+        User
+    }
+
     public class UserViewModel
     {
         [HiddenInput(DisplayValue = false)]
@@ -21,5 +28,6 @@ namespace MvcPL.Models
         public byte[] Image { get; set; }
 
         public int? BlogId { get; set; }
+        public Role Role { get; set; }
     }
 }

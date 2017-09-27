@@ -21,6 +21,16 @@ namespace BLL.Services
             _unit = unit;
         }
 
+        public int? GetIdByLogin(string login)
+        {
+            return _repository.GetUserByLogin(login)?.Id;
+        }
+
+        public string GetLoginById(int id)
+        {
+            return _repository.GetById(id)?.Login;
+        }
+
         public IEnumerable<UserEntity> GetAllUserEntities()
         {
             return _repository.GetAll().Select(user => user.ToBllUser());
@@ -29,7 +39,13 @@ namespace BLL.Services
         public UserEntity GetUserEntity(int id)
         {
             var user = _repository.GetById(id);
-            return user?.ToBllUser();  //TODO: проверка на null
+            return user?.ToBllUser();
+        }
+
+        public UserEntity GetUserByLogin(string login)
+        {
+            var user = _repository.GetUserByLogin(login);
+            return user?.ToBllUser();
         }
 
         public UserEntity GetByPredicate(Expression<Func<UserEntity, bool>> predicate)//!!!!!!!!!!

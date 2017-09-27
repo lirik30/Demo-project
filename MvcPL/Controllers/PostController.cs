@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -8,6 +9,8 @@ using MvcPL.Models;
 
 namespace MvcPL.Controllers
 {
+    //USERS CAN CHANGE ANOTHER'S POST
+    [Authorize]
     public class PostController : Controller
     {
         private readonly IPostService _postService;
@@ -19,22 +22,14 @@ namespace MvcPL.Controllers
             _commentService = commentService;
         }
 
-
+        [AllowAnonymous]
         public ActionResult Index()
         {
-            var posts = _postService.GetAllPostEntities().Select(p => new PostViewModel
-            {
-                Id = p.Id,
-                Title = p.Title,
-                Content = p.Content,
-                Tag = p.Tag,
-                CreateTime = p.CreateTime,
-                UpdateTime = p.UpdateTime,
-                BlogId = p.BlogId
-            });
+            var posts = _postService.GetAllPostEntities().Select(p => p.ToMvcPost());
             return View(posts);
         }
 
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -47,7 +42,7 @@ namespace MvcPL.Controllers
             var comments = _commentService.GetAllPostEntities().Where(c => c.PostId == id).OrderBy(c => c.CreateTime).
                            Select(c => c.ToMvcComment());
             TempData["Comments"] = comments.ToList();
-
+            Debug.WriteLine("_____________IMHERE_______");
             return View(post.ToMvcPost());
         }
 
@@ -61,8 +56,7 @@ namespace MvcPL.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(PostViewModel postViewModel)
         {
             if(!ModelState.IsValid)
@@ -88,8 +82,7 @@ namespace MvcPL.Controllers
             return View(post.ToMvcPost());
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(PostViewModel postViewModel)
         {
             postViewModel.UpdateTime = DateTime.Now;
@@ -111,8 +104,7 @@ namespace MvcPL.Controllers
         }
 
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             var product = _postService.GetPostEntity(id);

@@ -45,6 +45,7 @@
     <Compile Include="Services\BlogService.cs" />
     <Compile Include="Services\CommentService.cs" />
     <Compile Include="Services\PostService.cs" />
+    <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

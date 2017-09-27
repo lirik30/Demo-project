@@ -39,6 +39,9 @@ namespace DependencyResolver
 
             kernel.Bind<ICommentService>().To<CommentService>();
             kernel.Bind<ICommentRepository>().To<CommentRepository>();
+
+            kernel.Bind<IRoleService>().To<RoleService>();
+            kernel.Bind<IRoleRepository>().To<RoleRepository>();
         }
     }
 }

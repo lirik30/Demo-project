@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Delete user";
+    ViewBag.ReturnUrl = Request.UrlReferrer?.AbsoluteUri;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -27,7 +28,7 @@
         <div class="form-actions no-color">
             <input type="submit" value="Delete user" class="btn btn-default" />
             <br />
-            @Html.ActionLink("Cancel", "Index")
+            <a href="@ViewBag.ReturnUrl">Cancel</a>
         </div>
     }
 </div>

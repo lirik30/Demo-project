@@ -47,19 +47,30 @@
     </div>
 
     <div class="col-md-6">
-        <a href="@Url.Action("GetImage", "User", new {id = Model.Id})">
-            <img width="200" height="200" src="@Url.Action("GetImage", "User", new {id = Model.Id})"/>
+        <a href="@Url.Action("GetImage", "User", new { id = Model.Id })">
+            <img width="200" height="200" src="@Url.Action("GetImage", "User", new { id = Model.Id })"/>
         </a>
         
     </div>
 </div>
-<p>
-    @if (Model.BlogId != null)
-    {
-        @Html.ActionLink("Blog details", "Details", "Blog", new {id = Model.BlogId}, null)
-        <br/>
-    }
-    @Html.ActionLink("Edit user", "Edit", new {id = Model.Id}) |
-    @Html.ActionLink("Delete user", "Delete", new {id = Model.Id}) |
-    @Html.ActionLink("Back to list of users", "Index")
-</p>
+@if (Model.BlogId != null)
+{
+    @Html.ActionLink("Blog details", "Details", "Blog", new { id = Model.BlogId }, null)
+    <br/>
+}
+else if(User.Identity.IsAuthenticated)
+{
+    @Html.ActionLink("Create blog", "Create", "Blog", new { id = Model.Id }, null)
+    <br/>
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        
+        @Html.ActionLink("Edit user", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Delete user", "Delete", new {id = Model.Id})
+    </p>
+    <br/>
+}
+@Html.ActionLink("Back to list of users", "Index")
+

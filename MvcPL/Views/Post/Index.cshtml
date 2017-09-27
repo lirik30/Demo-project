@@ -16,16 +16,10 @@
             @Html.DisplayNameFor(model => model.CreateTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BlogId)
+            Blog name
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Tag)
-        </th>
-        <th>
-            Edit post
-        </th>
-        <th>
-            Delete post
         </th>
     </tr>
 
@@ -33,22 +27,16 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Title, "Details", new { id = item.Id })
+                @Html.ActionLink(item.Title, "Details", "Post", new { id = item.Id }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BlogId)
+                @Html.Action("GetNameById", "Blog", new { id = item.BlogId })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Tag)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

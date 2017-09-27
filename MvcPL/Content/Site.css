@@ -48,3 +48,16 @@ textarea {
 .validation-summary-valid {
     display: none;
 }
+
+.account-avatar-small {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.nav-bar-container {
+    width: 90%;
+}
+
+.logo-container {
+    width: 10%;
+}

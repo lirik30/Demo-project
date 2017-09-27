@@ -5,11 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>List of existing users</h2>
+<h2>List of existing users: </h2>
 
-<p>
-    @Html.ActionLink("Create new user", "Create")
-</p>
+@if (User.IsInRole("Administrator"))
+{
+    <p>
+        @Html.ActionLink("Create new user", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th></th>
@@ -25,15 +28,18 @@
         <th>
             @Html.DisplayNameFor(model => model.LastName)
         </th>
-        <th>
-            Edit user
-        </th>
-        <th>
-            Delete user
-        </th>
-        <th>
-            Create blog
-        </th>
+        @if (User.IsInRole("Administrator"))
+        {
+            <th>
+                Edit user
+            </th>
+            <th>
+                Delete user
+            </th>
+            <th>
+                Create blog
+            </th>
+        }
     </tr>
 
     @foreach (var item in Model) {
@@ -42,7 +48,7 @@
                 <img width="50" height="50" src="@Url.Action("GetImage", "User", new { id = item.Id })" />
             </td>
             <td>
-                @Html.ActionLink(item.Login, "Details", new {id = item.Id})
+                @Html.ActionLink(item.Login, "Details", new { id = item.Id })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
@@ -53,16 +59,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.Id})
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
-            </td>
-            <td>
-                @Html.ActionLink("Create", "Create", "Blog", new {id = item.Id}, null)
-            </td>
+            @if (User.IsInRole("Administrator"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+                <td>
+                    @Html.ActionLink("Create", "Create", "Blog", new { id = item.Id }, null)
+                </td>
+            }
         </tr>
     }
-
 </table>

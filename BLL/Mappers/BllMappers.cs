@@ -17,7 +17,8 @@ namespace BLL.Mappers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Image = user.Image,
-                BlogId = user.BlogId
+                BlogId = user.BlogId,
+                RoleId = user.RoleId//
             };
         }
 
@@ -32,7 +33,27 @@ namespace BLL.Mappers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Image = user.Image,
-                BlogId = user.BlogId
+                BlogId = user.BlogId,
+                RoleId = user.RoleId
+            };
+        }
+
+        //Role____________
+        public static DalRole ToDalRole(this RoleEntity role)
+        {
+            return new DalRole
+            {
+                Id = role.Id,
+                Name = role.Name
+            };
+        }
+
+        public static RoleEntity ToBllRole(this DalRole role)
+        {
+            return new RoleEntity
+            {
+                Id = role.Id,
+                Name = role.Name
             };
         }
 

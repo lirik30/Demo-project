@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit user";
+    ViewBag.ReturnUrl = Request.UrlReferrer?.AbsoluteUri;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,19 +15,15 @@
 
     <div class="row">
         <div class="col-md-6">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.Role)
+            @Html.HiddenFor(model => model.Password)
             <div class="editor-label">
                 @Html.LabelFor(model => model.Login)
             </div>
             <div class="editor-field">
                 @Html.EditorFor(model => model.Login)
                 @Html.ValidationMessageFor(model => model.Login)
-            </div>
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Password)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Password)
-                @Html.ValidationMessageFor(model => model.Password)
             </div>
             <div class="editor-label">
                 @Html.LabelFor(model => model.Email)
@@ -64,7 +61,7 @@
 }
 
 <div>
-    @Html.ActionLink("Cancel", "Index")
+    <a href="@ViewBag.ReturnUrl">Cancel</a>
 </div>
 
 @section Scripts {

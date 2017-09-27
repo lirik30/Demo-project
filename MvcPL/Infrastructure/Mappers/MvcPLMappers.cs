@@ -17,7 +17,8 @@ namespace MvcPL.Infrastructure.Mappers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Image = user.Image,
-                BlogId = user.BlogId
+                BlogId = user.BlogId,
+                Role = (Role)user.RoleId
             };
         }
 
@@ -32,7 +33,8 @@ namespace MvcPL.Infrastructure.Mappers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Image = user.Image,
-                BlogId = user.BlogId
+                BlogId = user.BlogId,
+                RoleId = (int)user.Role
             };
         }
 

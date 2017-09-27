@@ -52,6 +52,8 @@
     <Compile Include="Comment.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="BloghostDbInitializer.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
