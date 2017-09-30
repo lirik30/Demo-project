@@ -20,16 +20,16 @@ namespace MvcPL.Controllers
             _userService = userService;
         }
 
-        public ActionResult CreatePost(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //public ActionResult CreatePost(int? id)
+        //{
+        //    if (id == null)
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            if(!HasAccess((int)id))
-                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+        //    if(!HasAccess((int)id))
+        //        return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
 
-            return RedirectToAction("Create", "Post", new {id});
-        }
+        //    return RedirectToAction("Create", "Post", new {id});
+        //}
 
         [AllowAnonymous]
         public ActionResult Index()
@@ -136,12 +136,11 @@ namespace MvcPL.Controllers
         {
             return _blogService.GetBlogEntity(id).BlogName;
         }
+        #endregion
 
-        [ChildActionOnly]
-        public bool HasAccess(int id)
+        private bool HasAccess(int id)
         {
             return id == _userService.GetIdByLogin(User.Identity.Name) || User.IsInRole("Administrator");
         }
-        #endregion
     }
 }

@@ -154,13 +154,6 @@ namespace MvcPL.Controllers
         }
 
         #region ChildActions
-
-        [ChildActionOnly]
-        public bool HasAccess(string login)
-        {
-            return login == User.Identity.Name || User.IsInRole("Administrator");
-        }
-
         [ChildActionOnly, AllowAnonymous]
         public int? GetIdByLogin(string login)
         {
@@ -173,6 +166,11 @@ namespace MvcPL.Controllers
             return _service.GetLoginById(id);
         }
         #endregion
+
+        private bool HasAccess(string login)
+        {
+            return login == User.Identity.Name || User.IsInRole("Administrator");
+        }
 
         private string GetMD5Hash(string input)
         {

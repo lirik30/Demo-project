@@ -6,7 +6,7 @@
 }
 
 <div>
-    <h4>Blog:</h4>
+    <h4>Blog information</h4>
     <hr/>
     <dl class="dl-horizontal">
         <dt>@Html.DisplayNameFor(model => model.BlogName)</dt>
@@ -27,7 +27,7 @@
     <br/>
     @if (User.Identity.IsAuthenticated)
     {
-        @Html.ActionLink("Add post", "CreatePost", "Blog", new { id = Model.Id }, null)
+        @Html.ActionLink("Add post", "Create", "Post", new { id = Model.Id }, null)
         <br/>
         @Html.ActionLink("Edit blog", "Edit", new {id = Model.Id}) @:|
         @Html.ActionLink("Delete blog", "Delete", new {id = Model.Id})

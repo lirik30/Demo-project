@@ -14,11 +14,13 @@ namespace MvcPL.Controllers
     public class PostController : Controller
     {
         private readonly IPostService _postService;
+        private readonly IUserService _userService;
         private readonly ICommentService _commentService; //ajax запросы
 
-        public PostController(IPostService postService, ICommentService commentService)
+        public PostController(IPostService postService, ICommentService commentService, IUserService userService)
         {
             _postService = postService;
+            _userService = userService;
             _commentService = commentService;
         }
 
@@ -42,7 +44,7 @@ namespace MvcPL.Controllers
             var comments = _commentService.GetAllPostEntities().Where(c => c.PostId == id).OrderBy(c => c.CreateTime).
                            Select(c => c.ToMvcComment());
             TempData["Comments"] = comments.ToList();
-            Debug.WriteLine("_____________IMHERE_______");
+
             return View(post.ToMvcPost());
         }
 
@@ -51,6 +53,9 @@ namespace MvcPL.Controllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            if (!HasAccess((int)id))
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
 
             TempData["BlogId"] = id;
             return View();
@@ -79,6 +84,9 @@ namespace MvcPL.Controllers
             if (post == null)
                 return HttpNotFound();
 
+            if(!HasAccess(post.BlogId))
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
             return View(post.ToMvcPost());
         }
 
@@ -100,6 +108,9 @@ namespace MvcPL.Controllers
             if (post == null)
                 return HttpNotFound();
 
+            if (!HasAccess(post.BlogId))
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
             return View(post.ToMvcPost());
         }
 
@@ -112,5 +123,9 @@ namespace MvcPL.Controllers
             return RedirectToAction("Index");
         }
 
+        private bool HasAccess(int id)
+        {
+            return id == _userService.GetIdByLogin(User.Identity.Name) || User.IsInRole("Administrator");
+        }
     }
 }
