@@ -7,7 +7,6 @@ using DAL.Interfaces.DTO;
 using DAL.Interfaces.Repository;
 using EFModel;
 
-//TODO: mappers?
 namespace DAL.Concrete
 {
     public class PostRepository : IPostRepository
@@ -33,29 +32,6 @@ namespace DAL.Concrete
         public DalPost GetById(int key)
         {
             var post = _context.Set<Post>().SingleOrDefault(p => p.PostId == key);
-            return post == null
-                ? null
-                : new DalPost
-                {
-                    Id = post.PostId,
-                    Title = post.Title,
-                    Content = post.Content,
-                    Tag = post.Tag,
-                    CreateTime = post.CreateTime,
-                    UpdateTime = post.UpdateTime,
-                    BlogId = post.BlogId
-                };
-        }
-
-        public DalPost GetByPredicate(Expression<Func<DalPost, bool>> predicate)
-        {
-            var postParameter = Expression.Parameter(typeof(Post), "post");
-            var boolParameter = Expression.Parameter(typeof(bool), "b");
-            var newPredicate = Expression.Lambda<Func<Post, bool>>(
-                body: predicate.Body,
-                parameters: new[] { postParameter, boolParameter });
-
-            var post = _context.Set<Post>().SingleOrDefault(newPredicate);
             return post == null
                 ? null
                 : new DalPost

@@ -32,18 +32,6 @@ namespace BLL.Services
             return post?.ToBllPost();
         }
 
-        public PostEntity GetByPredicate(Expression<Func<PostEntity, bool>> predicate)
-        {
-            var postParameter = Expression.Parameter(typeof(DalPost), "post");
-            var boolParameter = Expression.Parameter(typeof(bool), "b");
-            var newPredicate = Expression.Lambda<Func<DalPost, bool>>(
-                body: predicate.Body,
-                parameters: new[] { postParameter, boolParameter });
-
-            var post = _repository.GetByPredicate(newPredicate);
-            return post?.ToBllPost();
-        }
-
         public void CreatePost(PostEntity post)
         {
             _repository.Create(post.ToDalPost());

@@ -42,27 +42,6 @@ namespace DAL.Concrete
                 };
         }
 
-        public DalComment GetByPredicate(Expression<Func<DalComment, bool>> predicate)
-        {
-            var commentParameter = Expression.Parameter(typeof(Comment), "comment");
-            var boolParameter = Expression.Parameter(typeof(bool), "b");
-            var newPredicate = Expression.Lambda<Func<Comment, bool>>(
-                body: predicate.Body,
-                parameters: new[] { commentParameter, boolParameter });
-
-            var comment = _context.Set<Comment>().SingleOrDefault(newPredicate);
-            return comment == null
-                ? null
-                : new DalComment
-                {
-                    Id = comment.CommentId,
-                    Content = comment.Content,
-                    CreateTime = comment.CreateTime,
-                    PostId = comment.PostId,
-                    UserId = comment.UserId
-                };
-        }
-
         public void Create(DalComment dComment)
         {
             var comment = new Comment

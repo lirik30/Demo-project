@@ -48,18 +48,6 @@ namespace BLL.Services
             return user?.ToBllUser();
         }
 
-        public UserEntity GetByPredicate(Expression<Func<UserEntity, bool>> predicate)//!!!!!!!!!!
-        {
-            var userParameter = Expression.Parameter(typeof(DalUser), "user");
-            var boolParameter = Expression.Parameter(typeof(bool), "b");
-            var newPredicate = Expression.Lambda<Func<DalUser, bool>>(
-                body: predicate.Body,
-                parameters: new[] { userParameter, boolParameter });
-
-            var user = _repository.GetByPredicate(newPredicate);
-            return user?.ToBllUser();
-        }
-
         public void CreateUser(UserEntity user)
         {
             _repository.Create(user.ToDalUser());

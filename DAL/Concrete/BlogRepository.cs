@@ -42,27 +42,6 @@ namespace DAL.Concrete
                 };
         }
 
-        public DalBlog GetByPredicate(Expression<Func<DalBlog, bool>> predicate)
-        {
-            var blogParameter = Expression.Parameter(typeof(Blog), "blog");
-            var boolParameter = Expression.Parameter(typeof(bool), "b");
-            var newPredicate = Expression.Lambda<Func<Blog, bool>>(
-                body: predicate.Body,
-                parameters: new[] { blogParameter, boolParameter });
-
-            var blog = _context.Set<Blog>().SingleOrDefault(newPredicate);
-            return blog == null
-                ? null
-                : new DalBlog
-                {
-                    Id = blog.BlogId,
-                    BlogName = blog.BlogName,
-                    Description = blog.Description,
-                    CreateTime = blog.CreateTime,
-                    UserId = blog.User.UserId
-                };
-        }
-
         public void Create(DalBlog dBlog)
         {
             var blog = new Blog
@@ -80,7 +59,7 @@ namespace DAL.Concrete
         {
             var blog = _context.Set<Blog>().Single(b => b.BlogId == dBlog.Id);
             blog.BlogName = dBlog.BlogName;
-            blog.Description = dBlog.Description; //Only blogname and description will be updated
+            blog.Description = dBlog.Description;
             _context.Entry(blog).State = EntityState.Modified;
         }
 

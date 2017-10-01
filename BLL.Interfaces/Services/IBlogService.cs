@@ -9,7 +9,6 @@ namespace BLL.Interfaces.Services
     {
         IEnumerable<BlogEntity> GetAllBlogEntities();
         BlogEntity GetBlogEntity(int id);
-        BlogEntity GetByPredicate(Expression<Func<BlogEntity, bool>> predicate);
         void CreateBlog(BlogEntity blog);
         void UpdateBlog(BlogEntity blog);
         void DeleteBlog(BlogEntity blog);

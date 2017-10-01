@@ -19,19 +19,8 @@ namespace MvcPL.Controllers
         {
             _commentService = commentService;
         }
+        
 
-        public ActionResult Index(int? id)
-        {
-            if(id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var comments = _commentService.GetAllPostEntities().Where(c => c.PostId == id)
-                .Select(c => c.ToMvcComment());
-
-            return View(comments);
-        }
-
-        //[ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Create(CommentViewModel commentViewModel)
         {

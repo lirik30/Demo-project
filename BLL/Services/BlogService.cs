@@ -32,18 +32,6 @@ namespace BLL.Services
             return blog?.ToBllBlog();
         }
 
-        public BlogEntity GetByPredicate(Expression<Func<BlogEntity, bool>> predicate)
-        {
-            var blogParameter = Expression.Parameter(typeof(DalBlog), "blog");//.........!!!!!!!!
-            var boolParameter = Expression.Parameter(typeof(bool), "b");
-            var newPredicate = Expression.Lambda<Func<DalBlog, bool>>(
-                body: predicate.Body,
-                parameters: new[] { blogParameter, boolParameter });
-
-            var blog = _repository.GetByPredicate(newPredicate);
-            return blog?.ToBllBlog();
-        }
-
         public void CreateBlog(BlogEntity blog)
         {
             _repository.Create(blog.ToDalBlog());

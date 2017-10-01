@@ -51,11 +51,6 @@ namespace DAL.Concrete
         }
 
         #region NotImplemented
-        public DalRole GetByPredicate(Expression<Func<DalRole, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Create(DalRole entity)
         {
             throw new NotImplementedException();

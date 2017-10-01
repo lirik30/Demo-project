@@ -33,18 +33,6 @@ namespace BLL.Services
             return comment?.ToBllComment();
         }
 
-        public CommentEntity GetByPredicate(Expression<Func<CommentEntity, bool>> predicate)
-        {
-            var commentParameter = Expression.Parameter(typeof(DalComment), "comment");
-            var boolParameter = Expression.Parameter(typeof(bool), "b");
-            var newPredicate = Expression.Lambda<Func<DalComment, bool>>(
-                body: predicate.Body,
-                parameters: new[] { commentParameter, boolParameter });
-
-            var comment = _repository.GetByPredicate(newPredicate);
-            return comment?.ToBllComment();
-        }
-
         public void CreateComment(CommentEntity comment)
         {
             _repository.Create(comment.ToDalComment());

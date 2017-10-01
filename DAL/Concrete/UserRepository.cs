@@ -67,32 +67,7 @@ namespace DAL.Concrete
                     Image = user.Image
                 };
         }
-
-        public DalUser GetByPredicate(Expression<Func<DalUser, bool>> predicate)//!!!
-        {
-            var userParameter = Expression.Parameter(typeof(User), "user");
-            var boolParameter = Expression.Parameter(typeof(bool), "b");
-            var newPredicate = Expression.Lambda<Func<User, bool>>(
-                body: predicate.Body, 
-                parameters: new[]{userParameter, boolParameter});
-
-            var user = _context.Set<User>().SingleOrDefault(newPredicate);
-            return user == null 
-                ? null 
-                : new DalUser
-                {
-                    Id = user.UserId,
-                    Login = user.Login,
-                    Password = user.Password,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    BlogId = user.Blog?.BlogId,
-                    RoleId = user.RoleId,
-                    Image = user.Image
-                };
-        }
-
+        
         public void Create(DalUser dUser)
         {
             var user = new User

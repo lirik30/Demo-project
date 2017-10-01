@@ -9,7 +9,6 @@ namespace BLL.Interfaces.Services
     {
         IEnumerable<PostEntity> GetAllPostEntities();
         PostEntity GetPostEntity(int id);
-        PostEntity GetByPredicate(Expression<Func<PostEntity, bool>> predicate);
         void CreatePost(PostEntity post);
         void UpdatePost(PostEntity post);
         void DeletePost(PostEntity post);
