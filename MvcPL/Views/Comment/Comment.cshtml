@@ -1,0 +1,18 @@
+﻿@model MvcPL.Models.CommentViewModel
+
+<div id="postComment">
+        <div class="row">
+            <div class="col-md-1">
+                <img width="50" height="50" src="@Url.Action("GetImage", "User", new { id = Model.UserId})" />
+            </div>
+
+            <div class="col-md-offset-1">
+                <strong>@Html.Action("GetLoginById", "User", new { id = Model.UserId })</strong>
+                <=> @Html.DisplayFor(model => model.CreateTime)
+                <br />
+                @Html.DisplayFor(modelItem => modelItem.Content)
+            </div>
+        </div>
+        <hr />
+</div>
+

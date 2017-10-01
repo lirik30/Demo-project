@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -41,11 +42,26 @@ namespace MvcPL.Controllers
             if (post == null)
                 return HttpNotFound();
 
-            var comments = _commentService.GetAllPostEntities().Where(c => c.PostId == id).OrderBy(c => c.CreateTime).
-                           Select(c => c.ToMvcComment());
+            var comments = _commentService.GetAllPostEntities().Where(c => c.PostId == id).
+                OrderByDescending(c => c.CreateTime).Select(c => c.ToMvcComment());
             TempData["Comments"] = comments.ToList();
 
             return View(post.ToMvcPost());
+        }
+
+        [AllowAnonymous]
+        public ActionResult Search(string searchText)
+        {
+            ViewBag.SearchText = searchText;
+            var postsWithSameTag = _postService.GetAllPostEntities().
+                Where(p => p.Tag.Equals(searchText, StringComparison.OrdinalIgnoreCase)).Select(p => p.ToMvcPost());
+            var postWithSameContent = _postService.GetAllPostEntities().
+                Where(p => p.Content.Contains(searchText)).Select(p => p.ToMvcPost());
+            var posts = new List<PostViewModel>();
+            posts.AddRange(postsWithSameTag);
+            posts.AddRange(postWithSameContent);
+
+            return View(posts);
         }
 
         [HttpGet]

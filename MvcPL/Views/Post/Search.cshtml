@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MvcPL.Models.PostViewModel>
+
+@{
+    ViewBag.Title = ViewBag.SearchText;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search results: @ViewBag.SearchText</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                Blog name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tag)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Title, "Details", "Post", new { id = item.Id }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+                <td>
+                    @Html.Action("GetNameById", "Blog", new { id = item.BlogId })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tag)
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>
+        The search has not given any results
+    </p>
+}

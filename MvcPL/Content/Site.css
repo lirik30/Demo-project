@@ -54,6 +54,11 @@ textarea {
     margin-bottom: 15px;
 }
 
+.searchbox {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
 .nav-bar-container {
     width: 90%;
 }

@@ -12,37 +12,17 @@
 <div class="row">
     <div class="col-md-6">
         <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Login)
-            </dt>
+            <dt>@Html.DisplayNameFor(model => model.Login)</dt>
+            <dd>@Html.DisplayFor(model => model.Login)</dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Login)
-            </dd>
+            <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+            <dd>@Html.DisplayFor(model => model.Email)</dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
+            <dt>@Html.DisplayNameFor(model => model.FirstName)</dt>
+            <dd>@Html.DisplayFor(model => model.FirstName)</dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.FirstName)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.LastName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.LastName)
-            </dd>
+            <dt>@Html.DisplayNameFor(model => model.LastName)</dt>
+            <dd>@Html.DisplayFor(model => model.LastName)</dd>
         </dl>
     </div>
 
@@ -53,6 +33,7 @@
         
     </div>
 </div>
+
 @if (Model.BlogId != null)
 {
     @Html.ActionLink("Blog details", "Details", "Blog", new { id = Model.BlogId }, null)
@@ -63,6 +44,7 @@ else if(User.Identity.IsAuthenticated)
     @Html.ActionLink("Create blog", "Create", "Blog", new { id = Model.Id }, null)
     <br/>
 }
+
 @if (User.Identity.IsAuthenticated)
 {
     <p>

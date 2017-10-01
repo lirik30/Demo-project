@@ -1,0 +1,20 @@
+﻿@model IEnumerable<MvcPL.Models.CommentViewModel>
+    
+<div>
+    @foreach (var comment in Model)
+    {
+        <div class="row">
+            <div class="col-md-1">
+                <img width="50" height="50" src="@Url.Action("GetImage", "User", new { id = comment.UserId})" />
+            </div>
+
+            <div class="col-md-offset-1">
+                <strong>@Html.Action("GetLoginById", "User", new { id = comment.UserId })</strong>
+                <=> @Html.DisplayFor(modelItem => comment.CreateTime)
+                <br />
+                @Html.DisplayFor(modelItem => comment.Content)
+            </div>
+        </div>
+        <hr />
+    }
+</div>
